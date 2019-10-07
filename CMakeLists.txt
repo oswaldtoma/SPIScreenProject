@@ -3,12 +3,6 @@ project(screen)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(screen main.cpp testScreen.cpp testScreen.h)
+add_executable(screen main.cpp testScreen.cpp testScreen.h driver/sh1106.c driver/sh1106.h)
 
-find_package(WiringPi REQUIRED)
-find_package(Threads REQUIRED)
-
-include_directories(${WIRINGPI_INCLUDE_DIRS})
-
-target_link_libraries(heaterController ${WIRINGPI_LIBRARIES})
-target_link_libraries(heaterController ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(screen wiringPi)

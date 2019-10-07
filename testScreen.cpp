@@ -3,10 +3,15 @@
 //
 
 #include "testScreen.h"
-#include "wiringPi.h"
-#include <wiringPiSPI.h>
-
+extern "C" {
+#include "driver/sh1106.h"
+}
 void testScreen::run()
 {
 
+
+    const char* cos = "TEST 123 BEZ POLSKICH ZNAKOW";
+    SH1106_begin();
+    SH1106_string(0, 0, cos, 12, 1);
+    SH1106_display();
 }
