@@ -1,16 +1,14 @@
-#include <iostream>
-#include <errno.h>
-#include <wiringPi.h>
-#include <wiringPiSPI.h>
-#include <unistd.h>
-#include "testScreen.h"
+#include "CMainScreen.h"
+#include "CController.h"
 
 using namespace std;
 
-
 int main()
 {
-    wiringPiSetup();
-    testScreen scr;
+    //init
+    CController::init();
+
+    //CMainScreen
+    CMainScreen scr;
     scr.run();
 }

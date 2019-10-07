@@ -2,11 +2,11 @@
 // Created by Oswald on 03.10.2019.
 //
 
-#include "testScreen.h"
+#include "CMainScreen.h"
 extern "C" {
 #include "driver/sh1106.h"
 }
-void testScreen::run()
+void CMainScreen::run()
 {
 
 
