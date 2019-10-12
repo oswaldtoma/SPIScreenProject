@@ -1,0 +1,1 @@
+/usr/bin/g++   -g   CMakeFiles/screen.dir/main.cpp.o CMakeFiles/screen.dir/CMainScreen.cpp.o CMakeFiles/screen.dir/driver/sh1106.c.o CMakeFiles/screen.dir/CController.cpp.o CMakeFiles/screen.dir/CButtons.cpp.o  -o screen -lwiringPi 

@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/tmp/tmp.WFhMyKFq16/CButton.cpp
+CButton.h
+/tmp/tmp.WFhMyKFq16/CButton.h
+wiringPi.h
+-
+
+/tmp/tmp.WFhMyKFq16/CButton.h
+
+/tmp/tmp.WFhMyKFq16/CController.cpp
+CController.h
+/tmp/tmp.WFhMyKFq16/CController.h
+wiringPi.h
+-
+
+/tmp/tmp.WFhMyKFq16/CController.h
+
+/tmp/tmp.WFhMyKFq16/CGlobalParams.h
+
+/tmp/tmp.WFhMyKFq16/CMainScreen.cpp
+driver/sh1106.h
+/tmp/tmp.WFhMyKFq16/driver/sh1106.h
+CMainScreen.h
+/tmp/tmp.WFhMyKFq16/CMainScreen.h
+CGlobalParams.h
+/tmp/tmp.WFhMyKFq16/CGlobalParams.h
+
+/tmp/tmp.WFhMyKFq16/CMainScreen.h
+CButton.h
+/tmp/tmp.WFhMyKFq16/CButton.h
+
+/tmp/tmp.WFhMyKFq16/driver/sh1106.h
+
+/tmp/tmp.WFhMyKFq16/main.cpp
+CMainScreen.h
+/tmp/tmp.WFhMyKFq16/CMainScreen.h
+CController.h
+/tmp/tmp.WFhMyKFq16/CController.h
+
