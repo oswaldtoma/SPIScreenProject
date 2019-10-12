@@ -3,9 +3,11 @@
 //
 
 #include "CController.h"
+#include "CGlobalParams.h"
 #include <wiringPi.h>
 
 void CController::init()
 {
     wiringPiSetup();
+    CButtons::init();
 }

@@ -7,8 +7,10 @@ int main()
 {
     //init
     CController::init();
-
-    //CMainScreen
     CMainScreen scr;
-    scr.run();
+    scr.init();
+
+    while(1) {
+        scr.run(); //todo odswiezanie, zegar?
+    }
 }

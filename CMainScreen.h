@@ -5,9 +5,11 @@
 #ifndef SCREEN_CMAINSCREEN_H
 #define SCREEN_CMAINSCREEN_H
 
+#include "CButtons.h"
 
 class CMainScreen {
 public:
+    void init();
     void run();
 };
 

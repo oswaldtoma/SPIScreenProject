@@ -5,10 +5,13 @@
 #ifndef SCREEN_CCONTROLLER_H
 #define SCREEN_CCONTROLLER_H
 
+#include "CButtons.h"
 
 class CController {
 
 public:
+    static CButtons buttonOne;
+    static CButtons buttonTwo;
     static void init();
 };
 
