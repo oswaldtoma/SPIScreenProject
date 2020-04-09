@@ -1,7 +1,10 @@
+#include <iostream>
 #include "CMainScreen.h"
 #include "CController.h"
 
-using namespace std;
+extern "C" {
+#include "driver/sh1106.h"
+}
 
 int main()
 {

@@ -2,6 +2,10 @@
 #include <wiringPiSPI.h>
 #include <stdio.h>
 #include "sh1106.h"
+#include <stdio.h>
+#include <wchar.h>
+#include <stdint.h>
+#include "../FontTimesNewRoman_10pt.h"
 
 #define CHANNEL 0
 #define VCCSTATE SH1106_SWITCHCAPVCC
@@ -113,11 +117,36 @@ void SH1106_char3216(unsigned char x,unsigned char y,unsigned char chChar)
 		}
 	}
 }
-void SH1106_char(unsigned char x,unsigned char y,char acsii,char size,char mode)
+void SH1106_char(unsigned char x,unsigned char y,wchar_t acsii,char size,char mode)
 {
 	unsigned char i,j,y0=y;
 	char temp;
-	unsigned char ch = acsii - ' ';
+    unsigned char ch = acsii - ' ';
+
+    switch(acsii)
+    {
+        case 261: ch = 95; break; //ą
+        case 263: ch = 96; break; //ć
+        case 281: ch = 97; break; //ę
+        case 322: ch = 98; break; //ł
+        case 324: ch = 99; break; //ń
+        case 243: ch = 100; break;//ó
+        case 347: ch = 101; break;//ś
+        case 380: ch = 102; break;//ż
+        case 378: ch = 103; break;//ź
+
+        case 260: ch = 104; break;
+        case 262: ch = 105; break;
+        case 280: ch = 106; break;
+        case 321: ch = 107; break;
+        case 323: ch = 108; break;
+        case 211: ch = 109; break;
+        case 346: ch = 110; break;
+        case 377: ch = 111; break;
+        case 379: ch = 112; break;
+        default: break;
+    }
+
 	for(i = 0;i<size;i++)
 	{
 		if(size == 12)
@@ -145,10 +174,10 @@ void SH1106_char(unsigned char x,unsigned char y,char acsii,char size,char mode)
 		}
 	}
 }
-void SH1106_string(unsigned char x,unsigned char y, const char *pString,
+void SH1106_string(unsigned char x,unsigned char y, const wchar_t *pString,
 					unsigned char Size,unsigned char Mode)
 {
-    while (*pString != '\0') {       
+    while (*pString != '\0') {
         if (x > (WIDTH - Size / 2)) {
 			x = 0;
 			y += Size;
@@ -157,7 +186,7 @@ void SH1106_string(unsigned char x,unsigned char y, const char *pString,
 			}
 		}
 		
-        SH1106_char(x, y, *pString, Size, Mode);
+        SH1106_timesNewRomanChar(x, y, *pString, Size, Mode);
         x += Size / 2;
         pString ++;
     }
@@ -192,5 +221,49 @@ void SH1106_display()
         digitalWrite(DC, HIGH);
         wiringPiSPIDataRW(CHANNEL, pBuf, WIDTH); 
         pBuf += WIDTH;
+    }
+}
+
+void SH1106_timesNewRomanChar(unsigned char x, unsigned char y, wchar_t ascii, char size, char mode)
+{
+    unsigned char i,j,y0=y;
+    uint16_t temp;
+    unsigned char ch = ascii - timesNewRoman_10ptFontInfo.startCharacter;
+
+    uint8_t bitsNumber = 8;
+
+    uint8_t charWidth = timesNewRoman_10ptDescriptors[ch].characterWidth;
+    uint16_t charOffset = timesNewRoman_10ptDescriptors[ch].characterOffsetBytes;
+
+    char bIsDoubleColumn = timesNewRoman_10ptDescriptors[ch].characterWidth > 8; // ex. a letter such as 'W'
+    if(bIsDoubleColumn) bitsNumber = 16;
+
+    for(i = 0;i < 15;i++)
+    {
+        if(bIsDoubleColumn)
+        {
+            uint16_t currentRowDouble = timesNewRoman_10ptBitmaps[charOffset + i];
+            currentRowDouble <<= 8;
+            currentRowDouble += timesNewRoman_10ptBitmaps[charOffset + i + 1];
+
+            temp = currentRowDouble;
+        }
+        else
+        {
+            uint8_t currentRow = timesNewRoman_10ptBitmaps[charOffset + i];
+            temp = currentRow;
+        }
+
+        for(j = bitsNumber;j > 0;j--)
+        {
+            if((temp >> j) & 1)  // lsb -> msb
+            {
+                SH1106_pixel(x + bitsNumber - j, y + i, 1);
+            }
+            else
+            {
+                SH1106_pixel(x + bitsNumber - j, y + i, 0);
+            }
+        }
     }
 }

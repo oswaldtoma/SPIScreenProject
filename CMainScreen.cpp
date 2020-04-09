@@ -5,24 +5,25 @@
 extern "C" {
 #include "driver/sh1106.h"
 }
+
 #include "CMainScreen.h"
-#include "CController.h"
+#include <iostream>
 
 void CMainScreen::init()
 {
     SH1106_begin();
+    SH1106_clear();
+    SH1106_display();
 }
 
 void CMainScreen::run()
 {
-    SH1106_clear();
-    SH1106_string(0, 0, "test123", 10, 1);
-    SH1106_display();
+    wchar_t buffer[] = L"W";
+
 
     if(CButtons::isButtonOnePressed())
     {
-        SH1106_clear();
-        SH1106_string(0, 10, "wcisniety przycisk!", 10, 1);
+        SH1106_string(0, 10, buffer, 12, 1);
         SH1106_display();
     }
 }
